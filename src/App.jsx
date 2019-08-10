@@ -32,27 +32,29 @@ class App extends React.Component {
 		return (
 			<div className="App">
 				<header className="App-header">
-					<div id="editor-area">
-						<textarea
-							name=""
-							id="editor"
-							cols="30"
-							rows="10"
-							onChange={this.handleInput}
-							value={this.state.input}
-						/>
-					</div>
-					<div id="preview-area">
-						<div
-							id="preview"
-							dangerouslySetInnerHTML={{ __html: marked(this.state.input, { renderer: renderer }) }}
-						/>
-					</div>
+					<Textbox handleInput={this.handleInput} input={this.state.input} />
+					<Preview input={this.state.input} />
 				</header>
 			</div>
 		);
 	}
 }
+
+const Textbox = (props) => {
+	return (
+		<div id="editor-area">
+			<textarea name="" id="editor" cols="80" rows="10" onChange={props.handleInput} value={props.input} />
+		</div>
+	);
+};
+
+const Preview = (props) => {
+	return (
+		<div id="preview-area">
+			<div id="preview" dangerouslySetInnerHTML={{ __html: marked(props.input, { renderer: renderer }) }} />
+		</div>
+	);
+};
 
 const placeholder = `# Welcome to my React Markdown Previewer!
 
